@@ -61,7 +61,7 @@ class RequestBuilder {
 
   Request build() {
     assert(_request.type != null && _request.uri != null);
-    assert(_request.type == RequestType.get && _request.body != null);
+    assert(_request.type == RequestType.get && _request.body == null);
     return _request;
   }
 }
