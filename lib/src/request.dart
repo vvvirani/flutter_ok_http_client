@@ -2,34 +2,34 @@ import 'package:flutter_ok_http_client/src/request_type.dart';
 
 class Request {
   final RequestType? type;
-  final Uri? uri;
+  final String path;
   final Map<String, String>? headers;
-  final Map<String, dynamic>? body;
+  final dynamic data;
 
   Request._({
+    required this.path,
     this.type,
-    this.uri,
     this.headers,
-    this.body,
+    this.data,
   });
 
   Request._empty()
-      : type = null,
-        uri = null,
+      : path = '',
+        type = null,
         headers = null,
-        body = null;
+        data = null;
 
   Request _copyWith({
     RequestType? type,
-    Uri? uri,
+    String? path,
     Map<String, String>? headers,
-    Map<String, dynamic>? body,
+    dynamic data,
   }) {
     return Request._(
+      path: path ?? this.path,
       type: type ?? this.type,
-      uri: uri ?? this.uri,
       headers: headers ?? this.headers,
-      body: body ?? this.body,
+      data: data ?? this.data,
     );
   }
 
@@ -39,13 +39,28 @@ class Request {
 class RequestBuilder {
   Request _request = Request._empty();
 
-  RequestBuilder setRequestType(RequestType type) {
-    _request = _request._copyWith(type: type);
+  RequestBuilder post({dynamic data}) {
+    _request = _request._copyWith(type: RequestType.post, data: data);
     return this;
   }
 
-  RequestBuilder setUrl(String url) {
-    _request = _request._copyWith(uri: Uri.parse(url));
+  RequestBuilder get() {
+    _request = _request._copyWith(type: RequestType.get);
+    return this;
+  }
+
+  RequestBuilder delete({dynamic data}) {
+    _request = _request._copyWith(type: RequestType.delete, data: data);
+    return this;
+  }
+
+  RequestBuilder patch({dynamic data}) {
+    _request = _request._copyWith(type: RequestType.patch, data: data);
+    return this;
+  }
+
+  RequestBuilder setPath(String url) {
+    _request = _request._copyWith(path: url);
     return this;
   }
 
@@ -54,14 +69,8 @@ class RequestBuilder {
     return this;
   }
 
-  RequestBuilder setBody(Map<String, dynamic> body) {
-    _request = _request._copyWith(body: body);
-    return this;
-  }
-
   Request build() {
-    assert(_request.type != null && _request.uri != null);
-    assert(_request.type == RequestType.get && _request.body == null);
+    assert(_request.type != null && _request.path != '');
     return _request;
   }
 }
