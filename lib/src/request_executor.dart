@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_ok_http_client/flutter_ok_http_client.dart';
+import 'package:flutter_ok_http_client/src/request_type.dart';
 
 class RequestExecutor {
   final Dio dio;
@@ -11,23 +12,25 @@ class RequestExecutor {
     try {
       Response<dynamic>? response;
 
-      Uri uri = _nullOrValue<Uri>(request.uri);
+      if (request.headers != null) {
+        dio.options.headers = request.headers;
+      }
 
       switch (request.type) {
         case RequestType.post:
-          response = await dio.postUri(uri, data: request.body);
+          response = await dio.post(request.path, data: request.data);
           break;
 
         case RequestType.get:
-          response = await dio.getUri(uri);
+          response = await dio.get(request.path);
           break;
 
         case RequestType.patch:
-          response = await dio.patchUri(uri, data: request.body);
+          response = await dio.patch(request.path, data: request.data);
           break;
 
         case RequestType.delete:
-          response = await dio.deleteUri(uri, data: request.body);
+          response = await dio.delete(request.path, data: request.data);
           break;
 
         default:
@@ -41,5 +44,3 @@ class RequestExecutor {
     }
   }
 }
-
-T _nullOrValue<T>(dynamic value) => value;

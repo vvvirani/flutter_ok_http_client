@@ -3,11 +3,16 @@ import 'package:flutter_ok_http_client/flutter_ok_http_client.dart';
 import 'package:flutter_ok_http_client/src/request_executor.dart';
 
 class OkHttpClient {
-  final Dio _dio;
+  OkHttpClient._();
 
-  OkHttpClient._(this._dio);
+  final Dio _dio = Dio();
 
-  static OkHttpClient builder() => OkHttpClient._(Dio());
+  static OkHttpClient builder() => OkHttpClient._();
+
+  OkHttpClient setOptions(BaseOptions options) {
+    _dio.options = options;
+    return this;
+  }
 
   OkHttpClient addInterceptor(Interceptor interceptor) {
     _dio.interceptors.add(interceptor);
