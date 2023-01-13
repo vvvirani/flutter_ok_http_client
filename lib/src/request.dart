@@ -1,33 +1,33 @@
-import 'package:flutter_ok_http_client/src/request_type.dart';
+import 'package:flutter_ok_http_client/src/supported_methods.dart';
 
 class Request {
-  final RequestType? type;
+  final SupportedMethods? method;
   final String path;
   final Map<String, String>? headers;
   final dynamic data;
 
   Request._({
     required this.path,
-    this.type,
+    this.method,
     this.headers,
     this.data,
   });
 
   Request._empty()
       : path = '',
-        type = null,
+        method = null,
         headers = null,
         data = null;
 
   Request _copyWith({
-    RequestType? type,
+    SupportedMethods? method,
     String? path,
     Map<String, String>? headers,
     dynamic data,
   }) {
     return Request._(
+      method: method ?? method,
       path: path ?? this.path,
-      type: type ?? this.type,
       headers: headers ?? this.headers,
       data: data ?? this.data,
     );
@@ -40,22 +40,27 @@ class RequestBuilder {
   Request _request = Request._empty();
 
   RequestBuilder post({dynamic data}) {
-    _request = _request._copyWith(type: RequestType.post, data: data);
+    _request = _request._copyWith(method: SupportedMethods.post, data: data);
     return this;
   }
 
   RequestBuilder get() {
-    _request = _request._copyWith(type: RequestType.get);
+    _request = _request._copyWith(method: SupportedMethods.get);
     return this;
   }
 
-  RequestBuilder delete({dynamic data}) {
-    _request = _request._copyWith(type: RequestType.delete, data: data);
+  RequestBuilder put({dynamic data}) {
+    _request = _request._copyWith(method: SupportedMethods.put, data: data);
     return this;
   }
 
   RequestBuilder patch({dynamic data}) {
-    _request = _request._copyWith(type: RequestType.patch, data: data);
+    _request = _request._copyWith(method: SupportedMethods.patch, data: data);
+    return this;
+  }
+
+  RequestBuilder delete({dynamic data}) {
+    _request = _request._copyWith(method: SupportedMethods.delete, data: data);
     return this;
   }
 
@@ -70,7 +75,7 @@ class RequestBuilder {
   }
 
   Request build() {
-    assert(_request.type != null && _request.path != '');
+    assert(_request.method != null && _request.path != '');
     return _request;
   }
 }
