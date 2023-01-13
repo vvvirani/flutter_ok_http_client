@@ -5,7 +5,9 @@ import 'package:flutter_ok_http_client/src/request_executor.dart';
 class OkHttpClient {
   final Dio _dio;
 
-  OkHttpClient() : _dio = Dio();
+  OkHttpClient._(this._dio);
+
+  static OkHttpClient builder() => OkHttpClient._(Dio());
 
   OkHttpClient addInterceptor(Interceptor interceptor) {
     _dio.interceptors.add(interceptor);
