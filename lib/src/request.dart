@@ -39,7 +39,7 @@ class Request {
 class RequestBuilder {
   Request _request = Request._empty();
 
-  RequestBuilder post({dynamic data}) {
+  RequestBuilder post([dynamic data]) {
     _request = _request._copyWith(method: SupportedMethods.post, data: data);
     return this;
   }
@@ -49,17 +49,17 @@ class RequestBuilder {
     return this;
   }
 
-  RequestBuilder put({dynamic data}) {
+  RequestBuilder put([dynamic data]) {
     _request = _request._copyWith(method: SupportedMethods.put, data: data);
     return this;
   }
 
-  RequestBuilder patch({dynamic data}) {
+  RequestBuilder patch([dynamic data]) {
     _request = _request._copyWith(method: SupportedMethods.patch, data: data);
     return this;
   }
 
-  RequestBuilder delete({dynamic data}) {
+  RequestBuilder delete([dynamic data]) {
     _request = _request._copyWith(method: SupportedMethods.delete, data: data);
     return this;
   }

@@ -11,7 +11,7 @@ abstract class OkHttpClient {
 
   OkHttpClient addAllInterceptors(Interceptors interceptors);
 
-  Executor newCall(Request request);
+  RequestExecutor newCall(Request request);
 }
 
 class _OkHttpClientBuilder extends _DioClient implements OkHttpClient {
@@ -44,7 +44,7 @@ class _OkHttpClientBuilder extends _DioClient implements OkHttpClient {
   }
 
   @override
-  Executor newCall(Request request) {
+  RequestExecutor newCall(Request request) {
     return RequestExecutor(dio: _dio, request: request);
   }
 }
