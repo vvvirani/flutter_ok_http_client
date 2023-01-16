@@ -2,18 +2,28 @@ import 'package:dio/dio.dart';
 import 'package:flutter_ok_http_client/flutter_ok_http_client.dart';
 import 'package:flutter_ok_http_client/src/request_executor.dart';
 
-class OkHttpClient {
-  OkHttpClient._();
+abstract class OkHttpClient {
+  static OkHttpClient builder() => _OkHttpClientBuilder._();
 
-  static final Dio _dio = Dio();
+  OkHttpClient setOptions(BaseOptions options);
 
-  static OkHttpClient builder() => OkHttpClient._();
+  OkHttpClient addInterceptor(Interceptor? interceptor);
 
+  OkHttpClient addAllInterceptors(Interceptors interceptors);
+
+  Executor newCall(Request request);
+}
+
+class _OkHttpClientBuilder extends _DioClient implements OkHttpClient {
+  _OkHttpClientBuilder._();
+
+  @override
   OkHttpClient setOptions(BaseOptions options) {
     _dio.options = options;
     return this;
   }
 
+  @override
   OkHttpClient addInterceptor(Interceptor? interceptor) {
     if (interceptor != null) {
       _dio.interceptors.add(interceptor);
@@ -23,6 +33,7 @@ class OkHttpClient {
     return this;
   }
 
+  @override
   OkHttpClient addAllInterceptors(Interceptors interceptors) {
     if (interceptors.isNotEmpty) {
       _dio.interceptors.addAll(interceptors);
@@ -32,7 +43,12 @@ class OkHttpClient {
     return this;
   }
 
-  RequestExecutor newCall(Request request) {
+  @override
+  Executor newCall(Request request) {
     return RequestExecutor(dio: _dio, request: request);
   }
+}
+
+class _DioClient {
+  final Dio _dio = Dio();
 }
