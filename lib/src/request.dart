@@ -69,7 +69,10 @@ class RequestBuilder {
     return this;
   }
 
-  RequestBuilder setHeaders(Map<String, String> headers) {
+  RequestBuilder addHeader(String key, String value) {
+    Map<String, String> headers =
+        Map<String, String>.from(_request.headers ?? {});
+    headers[key] = value;
     _request = _request._copyWith(headers: headers);
     return this;
   }
