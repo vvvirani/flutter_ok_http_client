@@ -11,4 +11,9 @@ export 'package:dio/dio.dart'
         LogInterceptor,
         Response,
         BaseOptions,
-        FormData;
+        FormData,
+        RequestOptions,
+        RequestInterceptorHandler,
+        ResponseInterceptorHandler,
+        DioError,
+        ErrorInterceptorHandler;
