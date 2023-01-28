@@ -6,4 +6,9 @@ export 'src/header_builder.dart';
 export 'src/request.dart' hide RequestBuilder;
 
 export 'package:dio/dio.dart'
-    show Interceptors, LogInterceptor, Response, BaseOptions;
+    show
+        Interceptor,
+        LogInterceptor,
+        Response,
+        BaseOptions,
+        FormData;
