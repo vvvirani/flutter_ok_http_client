@@ -9,7 +9,7 @@ abstract class OkHttpClient {
 
   OkHttpClient addInterceptor(Interceptor? interceptor);
 
-  OkHttpClient addAllInterceptors(Interceptors interceptors);
+  OkHttpClient addAllInterceptors(Iterable<Interceptor> interceptors);
 
   RequestExecutor newCall(Request request);
 }
