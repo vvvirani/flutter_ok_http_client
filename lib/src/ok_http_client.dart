@@ -34,7 +34,7 @@ class _OkHttpClientBuilder extends _DioClient implements OkHttpClient {
   }
 
   @override
-  OkHttpClient addAllInterceptors(Interceptors interceptors) {
+  OkHttpClient addAllInterceptors(Iterable<Interceptor> interceptors) {
     if (interceptors.isNotEmpty) {
       _dio.interceptors.addAll(interceptors);
     } else {
