@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_ok_http_client/flutter_ok_http_client.dart';
-import 'package:flutter_ok_http_client/src/connectivity_utils.dart';
 
 class RequestExecutor {
   late final Dio _dio;
