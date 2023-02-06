@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter_ok_http_client/flutter_ok_http_client.dart';
 import 'package:flutter_ok_http_client/src/connectivity_utils.dart';
@@ -24,7 +23,7 @@ class RequestExecutor {
           ),
         );
       } else {
-        throw NoConnectivityException();
+        throw const OkHttpClientException(kNoInternetConnection);
       }
     } on DioError catch (e) {
       Response<dynamic>? response = e.response;
