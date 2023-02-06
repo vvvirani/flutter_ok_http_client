@@ -3,6 +3,3 @@ class OkHttpClientException implements Exception {
 
   const OkHttpClientException(this.cause);
 }
-
-const String kNoInternetConnection =
-    'No Internet connection. Make sure that Wi-Fi or Mobile data is turned on, then try again.';

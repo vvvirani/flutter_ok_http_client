@@ -13,18 +13,14 @@ class RequestExecutor {
 
   Future<Response<dynamic>> execute() async {
     try {
-      if (await ConnectivityUtils.isConnected) {
-        return await _dio.request(
-          _request.path,
-          data: _request.data,
-          options: Options(
-            method: _request.method?.name,
-            headers: _request.headers,
-          ),
-        );
-      } else {
-        throw const OkHttpClientException(kNoInternetConnection);
-      }
+      return await _dio.request(
+        _request.path,
+        data: _request.data,
+        options: Options(
+          method: _request.method?.name,
+          headers: _request.headers,
+        ),
+      );
     } on DioError catch (e) {
       Response<dynamic>? response = e.response;
       if (response != null) {
