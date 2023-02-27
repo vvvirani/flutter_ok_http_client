@@ -16,4 +16,5 @@ export 'package:dio/dio.dart'
         RequestInterceptorHandler,
         ResponseInterceptorHandler,
         DioError,
-        ErrorInterceptorHandler;
+        ErrorInterceptorHandler,
+        MultipartFile;
